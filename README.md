@@ -21,3 +21,11 @@ http://localhost:8080/swagger-ui.html
 ```
 gradlew test
 ```
+
+Integrációs tesztek után:
+
+```
+gradlew test assemble
+gradlew -i test assemble
+gradlew integrationTest
+```
