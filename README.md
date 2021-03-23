@@ -70,3 +70,9 @@ docker run
 
 docker exec -it employees-jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ```
+
+```
+docker exec --user root -it employees-jenkins chmod 777 /var/run/docker.sock
+
+git update-index --chmod=+x gradlew
+```
