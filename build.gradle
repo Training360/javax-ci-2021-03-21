@@ -43,7 +43,6 @@ dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-//    runtimeOnly 'com.h2database:h2'
 
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.mockito:mockito-core'
@@ -56,6 +55,7 @@ dependencies {
     integrationTestImplementation 'io.rest-assured:json-path'
     integrationTestImplementation 'io.rest-assured:rest-assured'
     integrationTestImplementation 'io.rest-assured:spring-mock-mvc'
+    integrationTestImplementation 'com.h2database:h2'
 
 }
 
@@ -69,6 +69,10 @@ task integrationTest(type: Test) {
 }
 
 integrationTest {
+    systemProperty 'spring.datasource.url', findProperty('spring.datasource.url')
+    systemProperty 'spring.datasource.username', findProperty('spring.datasource.username')
+    systemProperty 'spring.datasource.password', findProperty('spring.datasource.password')
+
     dependsOn(test)
     useJUnitPlatform()
 }
