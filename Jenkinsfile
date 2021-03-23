@@ -16,10 +16,16 @@ pipeline {
                 sh './gradlew integrationTest'
             }
         }
-        stage('Integration test on MariaDB') {
+/*        stage('Integration test on MariaDB') {
                     steps {
                         sh './gradlew -Pspring.datasource.url=jdbc:mariadb://employees-it-mariadb/employees -Pspring.datasource.username=employees -Pspring.datasource.password=employees integrationTest'
                     }
+        }*/
+        stage('SonarQube') {
+            steps {
+                sh './gradlew sonarqube -Dsonar.userHome=/tmp/.sonar -Dsonar.host.url=http://employees-sonarqube:9000'
+            }
         }
+
     }
 }
