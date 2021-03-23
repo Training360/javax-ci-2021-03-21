@@ -1,6 +1,9 @@
 pipeline {
     agent {
-        docker { image 'adoptopenjdk:11-jdk-hotspot' }
+        docker {
+            image 'adoptopenjdk:11-jdk-hotspot'
+            args '--network jenkins'
+        }
     }
     stages {
         stage('Build') {
