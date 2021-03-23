@@ -7,7 +7,6 @@ pipeline {
             steps {
                 sh './gradlew test assemble'
             }
-
-            }
         }
     }
+}
