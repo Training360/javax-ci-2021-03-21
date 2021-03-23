@@ -13,5 +13,10 @@ pipeline {
                 sh './gradlew integrationTest'
             }
         }
+        stage('Integration test on MariaDB') {
+                    steps {
+                        sh './gradlew integrationTest -Pspring.datasource.url=jdbc:mariadb://employees-it-mariadb/employees -Pspring.datasource.username=employees -Pspring.datasource.password=employees'
+                    }
+        }
     }
 }

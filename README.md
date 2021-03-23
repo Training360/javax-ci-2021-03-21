@@ -76,3 +76,14 @@ docker exec --user root -it employees-jenkins chmod 777 /var/run/docker.sock
 
 git update-index --chmod=+x gradlew
 ```
+
+```
+docker run -d   
+    -e MYSQL_DATABASE=employees    
+    -e MYSQL_USER=employees    
+    -e MYSQL_PASSWORD=employees    
+    -e MYSQL_ALLOW_EMPTY_PASSWORD=yes     
+    --name employees-it-mariadb
+    --network jenkins
+    mariadb
+```
