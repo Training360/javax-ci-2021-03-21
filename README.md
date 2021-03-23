@@ -85,5 +85,19 @@ docker run -d
     -e MYSQL_ALLOW_EMPTY_PASSWORD=yes     
     --name employees-it-mariadb
     --network jenkins
+    -p 3307:3306
     mariadb
+```
+
+SonarQube
+
+```
+docker run --name employees-sonarqube --detach 
+  --network jenkins 
+  --publish 9000:9000 
+  sonarqube:lts
+```
+
+```
+gradlew sonarqube
 ```
