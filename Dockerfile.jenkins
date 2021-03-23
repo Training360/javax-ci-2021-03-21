@@ -3,7 +3,7 @@ FROM jenkins/jenkins:lts
 USER root
 
 RUN groupadd docker \
-    && usermod -a -G root jenkins
+    && usermod -a -G docker jenkins
 
 ARG DOCKER_CLIENT=docker-20.10.5.tgz
 
