@@ -127,3 +127,15 @@ docker exec -it employees-nexus cat /nexus-data/admin.password
 ```
 gradlew -PbuildNumber=3 publish
 ```
+
+Alkalmazás Dockerben
+
+```
+docker network create my-employees
+
+docker run -d  -e MYSQL_DATABASE=employees -e MYSQL_USER=employees -e MYSQL_PASSWORD=employees -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --name employees-my-mariadb --network my-employees -p 3308:3306 mariadb
+
+docker run  -p 8080:8080 -e SPRING_DATASOURCE_URL=jdbc:mariadb://employees-my-mariadb/employees -e SPRING_DATASOURCE_USERNAME=employees -e SPRING_DATASOURCE_PASSWORD=employees --network my-employees --name my-employees training360/employees-ci
+
+docker run  -p 8080:8080 -e SPRING_DATASOURCE_URL=jdbc:mariadb://employees-my-mariadb/employees -e SPRING_DATASOURCE_USERNAME=employees -e SPRING_DATASOURCE_PASSWORD=employees --network my-employees --name my-employees employees
+```
