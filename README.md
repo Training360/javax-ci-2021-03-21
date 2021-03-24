@@ -102,8 +102,28 @@ docker run --name employees-sonarqube --detach
 gradlew sonarqube
 ```
 
+Quality Gate
+
+https://tomgregory.com/sonarqube-quality-gates-in-jenkins-build-pipeline/
+
 Buildnumber
 
 ```
 gradlew.bat -PbuildNumber=34 bootJar
+```
+
+Nexus
+
+```
+docker run --name employees-nexus --detach
+  --network jenkins
+  --publish 8091:8081
+  --volume nexus-data:/nexus-data
+  sonatype/nexus3
+
+docker exec -it employees-nexus cat /nexus-data/admin.password
+```
+
+```
+gradlew -PbuildNumber=3 publish
 ```
