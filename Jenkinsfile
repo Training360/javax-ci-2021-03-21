@@ -39,7 +39,9 @@ pipeline {
             steps {
                 /*sh './gradlew -PbuildNumber=${BUILD_NUMBER} docker'*/
                 /* sh 'docker build -t employees .' */
-		def customImage = docker.build("employees:${env.BUILD_NUMBER}")
+		script {
+			def customImage = docker.build("employees:${env.BUILD_NUMBER}")
+		}
             }
         }
 
