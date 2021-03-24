@@ -1,8 +1,12 @@
 pipeline {
     agent {
-        docker {
+        /*docker {
             image 'adoptopenjdk:11-jdk-hotspot'
             args '--network jenkins'
+        }*/
+        dockerfile {
+            filename 'Dockerfile.build'
+            args '--network jenkins --volume gradle-data:/root/.gradle'
         }
     }
     stages {
@@ -26,11 +30,11 @@ pipeline {
                 sh './gradlew -PbuildNumber=$BUILD_NUMBER  sonarqube -Dsonar.userHome=/tmp/.sonar -Dsonar.host.url=http://employees-sonarqube:9000'
             }
         }*/
-        stage('Publish') {
+        /*stage('Publish') {
             steps {
                 sh './gradlew -PbuildNumber=${BUILD_NUMBER} -PnexusUrl=http://employees-nexus:8081 -PnexusUsername=admin -PnexusPassword=admin publish'
             }
-        }
+        }*/
         stage('Docker image') {
             steps {
                 sh './gradlew -PbuildNumber=${BUILD_NUMBER} docker'

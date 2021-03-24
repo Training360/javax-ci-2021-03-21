@@ -1,0 +1,13 @@
+FROM adoptopenjdk:11-jdk-hotspot
+
+ARG DOCKER_CLIENT=docker-20.10.5.tgz
+
+RUN cd /tmp/ \
+    && curl -sSL -O https://download.docker.com/linux/static/stable/x86_64/${DOCKER_CLIENT} \
+    && tar zxf ${DOCKER_CLIENT} \
+    && mkdir -p /usr/local/bin \
+    && mv ./docker/docker /usr/local/bin \
+    && chmod +x /usr/local/bin/docker \
+    && rm -rf /tmp/* \
+    && curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-Linux-x86_64" -o /usr/local/bin/docker-compose \
+    && chmod +x /usr/local/bin/docker-compose
