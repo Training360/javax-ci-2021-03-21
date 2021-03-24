@@ -140,9 +140,9 @@ docker {
 }
 
 dockerRun {
-    def url = findProperty('spring.datasource.url')
-    def username = findProperty('spring.datasource.username')
-    def password = findProperty('spring.datasource.password')
+    def url = findProperty('spring.datasource.url') ?: 'jdbc:mariadb://localhost/employees'
+    def username = findProperty('spring.datasource.username') ?: 'employees'
+    def password = findProperty('spring.datasource.password') ?: 'employees'
     name 'my-employees'
     image 'employees'
     ports '8080:8080'

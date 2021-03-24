@@ -31,6 +31,11 @@ pipeline {
                 sh './gradlew -PbuildNumber=${BUILD_NUMBER} -PnexusUrl=http://employees-nexus:8081 -PnexusUsername=admin -PnexusPassword=admin publish'
             }
         }
+        stage('Docker image') {
+            steps {
+                sh './gradlew -PbuildNumber=${BUILD_NUMBER} docker'
+            }
+        }
 
     }
 }
