@@ -24,3 +24,14 @@ services:
       - 8080
     ports:
       - 8080:8080
+
+  employees-it-newman:
+    image: postman/newman:5-ubuntu
+    volumes:
+    - ./postman:/etc/newman
+    - ./wait:/opt/wait
+    entrypoint: []
+    command: ["/opt/wait/wait-for-it.sh", "-t", "30", "employees-it-app:8080", "--", "newman", "run", 'employees.postman_collection.json', '-e', 'it.postman_environment.json']
+    depends_on:
+      - employees-it-app
+    
