@@ -26,6 +26,11 @@ pipeline {
                 sh './gradlew -PbuildNumber=$BUILD_NUMBER  sonarqube -Dsonar.userHome=/tmp/.sonar -Dsonar.host.url=http://employees-sonarqube:9000'
             }
         }*/
+        stage('Publish') {
+            steps {
+                sh './gradlew -PbuildNumber=${BUILD_NUMBER} -PnexusUrl=http://employees-nexus:8081 -PnexusUsername=admin -PnexusPassword=admin publish'
+            }
+        }
 
     }
 }
