@@ -19,7 +19,7 @@ services:
       SPRING_DATASOURCE_URL: 'jdbc:mariadb://employees-it-mariadb:3306/employees'
     volumes:
     - jenkins-data:/var/jenkins_home
-    entrypoint: ["/var/jenkins_home/workspace/employees/integration-tests/wait/wait-for-it.sh", "-t", "120", "employees-it-mariadb:3306", "--", "java", "org.springframework.boot.loader.JarLauncher"]
+    entrypoint: ["/var/jenkins_home/workspace/employees/integration-tests/wait/wait-for-it.sh", "-t", "120", "employees-it-mariadb:3306", "--", "java", "-jar", "employees.jar"]
     expose:
       - 8080
 
