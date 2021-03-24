@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh './gradlew test assemble'
+                sh './gradlew -PbuildNumber=$BUILD_NUMBER  test assemble'
             }
         }
         /*stage('Integration test') {
@@ -21,11 +21,11 @@ pipeline {
                         sh './gradlew -Pspring.datasource.url=jdbc:mariadb://employees-it-mariadb/employees -Pspring.datasource.username=employees -Pspring.datasource.password=employees integrationTest'
                     }
         }*/
-        stage('SonarQube') {
+        /*stage('SonarQube') {
             steps {
-                sh './gradlew sonarqube -Dsonar.userHome=/tmp/.sonar -Dsonar.host.url=http://employees-sonarqube:9000'
+                sh './gradlew -PbuildNumber=$BUILD_NUMBER  sonarqube -Dsonar.userHome=/tmp/.sonar -Dsonar.host.url=http://employees-sonarqube:9000'
             }
-        }
+        }*/
 
     }
 }

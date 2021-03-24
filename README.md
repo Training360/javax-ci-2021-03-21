@@ -101,3 +101,9 @@ docker run --name employees-sonarqube --detach
 ```
 gradlew sonarqube
 ```
+
+Buildnumber
+
+```
+gradlew.bat -PbuildNumber=34 bootJar
+```

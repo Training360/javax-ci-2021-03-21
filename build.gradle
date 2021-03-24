@@ -8,7 +8,10 @@ plugins {
 }
 
 group = 'training'
-version = '0.0.1-SNAPSHOT'
+
+def buildNumber = findProperty('buildNumber') ?: 'SNAPSHOT'
+version = '0.0.1-' + buildNumber
+
 sourceCompatibility = '11'
 
 repositories {
