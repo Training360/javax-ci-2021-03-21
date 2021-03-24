@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  employees-it-mariadb:
+    image: mariadb
+    expose:
+      - 3306
+    environment:
+      MYSQL_DATABASE: employees
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes' # aposztrófok nélkül boolean true-ként értelmezi
+      MYSQL_USER: employees
+      MYSQL_PASSWORD: employees
+
+  employees-it-app:
+    image: employees
+    depends_on:
+      - employees-it-mariadb
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mariadb://employees-it-mariadb:3306/employees'
+    volumes:
+    - jenkins-data:/var/jenkins_home
+    entrypoint: ["/var/jenkins_home/workspace/employees/integration-tests/wait/wait-for-it.sh", "-t", "120", "employees-it-mariadb:3306", "--", "java", "org.springframework.boot.loader.JarLauncher"]
+    expose:
+      - 8080
+
+  employees-it-newman:
+    image: postman/newman:5-ubuntu
+    volumes:
+      - jenkins-data:/var/jenkins_home
+    entrypoint: []
+    command: ["/var/jenkins_home/workspace/employees/integration-tests/wait/wait-for-it.sh", "-t", "30", "employees-it-app:8080", "--", "newman", "run", '/var/jenkins_home/workspace/employees/integration-tests/postman/employees.postman_collection.json', '-e', '/var/jenkins_home/workspace/employees/integration-tests/postman/it.postman_environment.json']
+    depends_on:
+      - employees-it-app
+
+volumes:
+  jenkins-data:
+    external: true

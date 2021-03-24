@@ -35,13 +35,22 @@ pipeline {
                 sh './gradlew -PbuildNumber=${BUILD_NUMBER} -PnexusUrl=http://employees-nexus:8081 -PnexusUsername=admin -PnexusPassword=admin publish'
             }
         }*/
-        stage('Docker image') {
-            steps {
+        /*stage('Docker image') {
+            steps { */
                 /*sh './gradlew -PbuildNumber=${BUILD_NUMBER} docker'*/
-                /* sh 'docker build -t employees .' */
+                /* sh 'docker build -t employees .' */ /*
 		script {
 			def customImage = docker.build("employees:${env.BUILD_NUMBER}")
 		}
+            }
+        }*/
+        stage('E2E test') {
+            steps {
+                script {
+                    dir ('./integration-tests') {
+                        sh 'docker-compose -f docker-compose.prod.yml up --abort-on-container-exit '
+                    }
+                }
             }
         }
 
