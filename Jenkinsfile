@@ -37,7 +37,8 @@ pipeline {
         }*/
         stage('Docker image') {
             steps {
-                sh './gradlew -PbuildNumber=${BUILD_NUMBER} docker'
+                /*sh './gradlew -PbuildNumber=${BUILD_NUMBER} docker'*/
+                sh 'docker build -t employees .'
             }
         }
 
