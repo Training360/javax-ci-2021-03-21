@@ -143,3 +143,11 @@ docker build -t employees .
 
 docker run  -p 8080:8080 -e SPRING_DATASOURCE_URL=jdbc:mariadb://employees-my-mariadb/employees -e SPRING_DATASOURCE_USERNAME=employees -e SPRING_DATASOURCE_PASSWORD=employees --network my-employees --name my-employees employees
 ```
+
+```
+gradlew    
+    -Pspring.datasource.url=jdbc:mariadb://employees-my-mariadb/employees    
+    -Pspring.datasource.username=employees     
+    -Pspring.datasource.password=employees    
+    dockerRun
+```

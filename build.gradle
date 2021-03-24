@@ -6,6 +6,8 @@ plugins {
     id "org.sonarqube" version "3.1.1"
     id 'jacoco'
     id 'maven-publish'
+     id 'com.palantir.docker' version '0.26.0'
+    id 'com.palantir.docker-run' version '0.26.0'
 }
 
 group = 'training'
@@ -128,4 +130,23 @@ publishing {
             }
         }
     }
+}
+
+docker {
+    name 'employees'
+    tags 'latest' // deprecated, use 'tag'
+    dockerfile file('Dockerfile.gradle')
+    files 'build/libs/employees-0.0.1-SNAPSHOT.jar'
+}
+
+dockerRun {
+    def url = findProperty('spring.datasource.url')
+    def username = findProperty('spring.datasource.username')
+    def password = findProperty('spring.datasource.password')
+    name 'my-employees'
+    image 'employees'
+    ports '8080:8080'
+    daemonize true
+    env 'spring.datasource.url': url, 'spring.datasource.username': username, 'spring.datasource.password': password
+    arguments '--network=my-employees', '-P'
 }
